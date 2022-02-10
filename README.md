@@ -40,6 +40,23 @@ This repository will store important notes and projects developed with Electron 
 >});
 >```
 
+## Loading custom HTML file
+>**Don't forget to import your custom css and javascript file inside your html file**
+>
+>_main.js_
+>```javascript
+>const { app, BrowserWindow } = require("electron");
+>
+>app.on("ready", () => {
+>  let mainWindow = new BrowserWindow({
+>    width: 600,
+>    height: 400,
+>  });
+>  mainWindow.loadURL(`file://${__dirname}/your_html_file_location`)
+>});
+>```
+
+
 ## Commands
 
 - `node -v` -> check NodeJs version.
