@@ -56,7 +56,30 @@ This repository will store important notes and projects developed with Electron 
 >});
 >```
 
-
+## Communication between Ipc Main and Ipc Renderer
+>_index.html_
+>```html
+><a href="#" id="link-sobre">Sobre</a>
+><script src="javascript/renderer.js"></script>
+>```
+>_renderer.js_
+>```javascript
+>const { ipcRenderer } = require("electron");
+>let linkSobre = document.querySelector("#link-sobre");
+>linkSobre.addEventListener("click", () => {
+>  ipcRenderer.send("abrir-janela-sobre");
+>});
+>```
+>_main.js_
+>```javascript
+>ipcMain.on("abrir-janela-sobre", () => {
+>   let window = new BrowserWindow({
+>       width: 300,
+>       height: 200,
+>    });
+>    window.loadURL(`file://${__dirname}/app/index.html`);
+>});
+>```
 ## Commands
 
 - `node -v` -> check NodeJs version.
