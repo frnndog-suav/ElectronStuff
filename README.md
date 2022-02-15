@@ -80,6 +80,27 @@ This repository will store important notes and projects developed with Electron 
 >    window.loadURL(`file://${__dirname}/app/index.html`);
 >});
 >```
+
+## Preventing multiple instances of the same window be opened
+>_main.js_
+>```javascript
+>let window = null
+>ipcMain.on("abrir-janela-sobre", () => {
+>   if(window == null){
+>       window = new BrowserWindow({
+>           width: 300,
+>           height: 200,
+>       });
+>   }
+>
+>   window.on("closed", () => {
+>       window = null;
+>   });
+>
+>    window.loadURL(`file://${__dirname}/app/index.html`);
+>});
+>```
+
 ## Commands
 
 - `node -v` -> check NodeJs version.
