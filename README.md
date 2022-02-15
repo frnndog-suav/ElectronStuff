@@ -102,13 +102,35 @@ This repository will store important notes and projects developed with Electron 
 >});
 >```
 
+## Opening external link on browser (Shell Process)
+>_index.html_
+>```html
+><p>Acesse o youtube <a href="#" id="link-youtube">aqui</a>.</p>
+>```
+>_index.js_
+>```javascript
+>const { shell } = require("electron");
+>let  linkYoutube = document.querySelector("#link-youtube");
+>linkYoutube.addEventListener("click", () => {
+>     shell.openExternal("https://www.youtube.com/");
+>});
+>```
+
+## Get Electron version 
+>_index.html_
+>```html
+><p>Versão do Electron: <span  id="versao-electron"></span></p>
+>```
+>_index.js_
+>```javascript
+>const  process = require("process");
+>let  versaoElectron = document.querySelector("#versao-electron");
+>window.onload = function () {
+>    versaoElectron.textContent = process.versions.electron;
+>};
+>```
+
 ## Commands
 
 - `node -v` -> check NodeJs version.
 - `CTRL + C` -> stop app.
-
-
-## VS Code shortcuts
-
-
-  
