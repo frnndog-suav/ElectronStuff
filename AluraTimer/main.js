@@ -26,7 +26,9 @@ ipcMain.on("abrir-janela-sobre", () => {
     sobreWindow = new BrowserWindow({
       webPreferences: webReference,
       width: 300,
-      height: 200,
+      height: 220,
+      alwaysOnTop: true,
+      frame: false,
     });
   }
 
@@ -35,4 +37,8 @@ ipcMain.on("abrir-janela-sobre", () => {
   });
 
   sobreWindow.loadURL(`file://${__dirname}/app/sobre.html`);
+});
+
+ipcMain.on("fechar-janela-sobre", () => {
+  sobreWindow.close();
 });
