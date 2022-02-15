@@ -5,6 +5,8 @@ const webReference = {
   contextIsolation: false,
 };
 
+let sobreWindow = null;
+
 app.on("ready", () => {
   let mainWindow = new BrowserWindow({
     webPreferences: webReference,
@@ -20,10 +22,16 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.on("abrir-janela-sobre", () => {
-  let sobreWindow = new BrowserWindow({
-    webPreferences: webReference,
-    width: 300,
-    height: 200,
+  if (sobreWindow == null) {
+    sobreWindow = new BrowserWindow({
+      webPreferences: webReference,
+      width: 300,
+      height: 200,
+    });
+  }
+
+  sobreWindow.on("closed", () => {
+    sobreWindow = null;
   });
 
   sobreWindow.loadURL(`file://${__dirname}/app/sobre.html`);
