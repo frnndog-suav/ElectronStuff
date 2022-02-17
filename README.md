@@ -57,7 +57,7 @@ This repository will store important notes and projects developed with Electron 
 >});
 >```
 
-## Communication between Ipc Main and Ipc Renderer
+## Communication between main and renderer process
 >_index.html_
 >```html
 ><a href="#" id="link-sobre">Sobre</a>
@@ -81,7 +81,21 @@ This repository will store important notes and projects developed with Electron 
 >    window.loadURL(`file://${__dirname}/app/index.html`);
 >});
 >```
-
+>
+## Sending parameters from renderer to main process
+>_renderer.js_
+>```javascript
+>const { ipcRenderer } = require("electron");
+>...
+>ipcRenderer.send("curso-parado", parameter1, parameter2, parameter3,...);
+>```
+>_main.js_
+>```javascript
+>ipcMain.on("curso-parado", (event, parameter1, parameter2, parameter3...) => {
+>...
+>});
+>```
+>**Obs**: the first parameter is always **event**.
 ## Preventing multiple instances of the same window from opening
 >_main.js_
 >```javascript
