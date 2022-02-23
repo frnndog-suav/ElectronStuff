@@ -1,4 +1,5 @@
 
+
 # Electron stuff here.
 This repository will store important notes and projects developed with Electron technology for frnndog-suav interest.
 
@@ -143,6 +144,26 @@ This repository will store important notes and projects developed with Electron 
 >    versaoElectron.textContent = process.versions.electron;
 >};
 >```
+
+## Tray
+>**Tray() requires a mandatory argument: your tray icon**
+>```javascript
+>const { Tray, Menu } = require("electron");
+>...
+>let tray = new Tray(__dirname + "/app/img/icon-tray.png");
+>let  trayMenu = Menu.buildFromTemplate([
+>             { label:  "Cursos"},
+>             { label:  "", type:  "separator" },
+>             { label:  "Javascript", type:  "radio" },
+>             { label:  "Photoshop", type:  "radio" },
+>             { label:  "Java", type:  "radio" }
+>]);
+>tray.setContextMenu(trayMenu);
+>```
+>**Obs**: Check more tray customization [here](https://www.electronjs.org/pt/docs/latest/api/tray).
+
+
+
 
 ## Commands
 
