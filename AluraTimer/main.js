@@ -1,4 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require("electron");
+const data = require("./data");
+const templateGenerator = require("./template");
 
 const webReference = {
   nodeIntegration: true,
@@ -6,6 +8,7 @@ const webReference = {
 };
 
 let sobreWindow = null;
+let tray = null;
 
 app.on("ready", () => {
   let mainWindow = new BrowserWindow({
@@ -13,6 +16,11 @@ app.on("ready", () => {
     width: 600,
     height: 400,
   });
+
+  tray = new Tray(__dirname + "/app/img/icon-tray.png");
+  let template = templateGenerator.geraTrayTemplate();
+  let trayMenu = Menu.buildFromTemplate(template);
+  tray.setContextMenu(trayMenu);
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 });
@@ -44,5 +52,5 @@ ipcMain.on("fechar-janela-sobre", () => {
 });
 
 ipcMain.on("curso-parado", (event, curso, tempoEstudado) => {
-  console.log("O curso é " + curso + " e foi estudado por " + tempoEstudado);
+  data.salvaDados(curso, tempoEstudado);
 });
