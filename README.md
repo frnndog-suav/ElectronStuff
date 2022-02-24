@@ -162,7 +162,39 @@ This repository will store important notes and projects developed with Electron 
 >```
 >**Obs**: Check more tray customization [here](https://www.electronjs.org/pt/docs/latest/api/tray).
 
-
+## Application menu
+>```javascript
+>const { Menu } = require("electron");
+>...
+>let  templateMenu = [
+>   {
+>       label:  "Meu menu",
+>       submenu: [
+>          {
+>             label:  "Item 1",
+>          },
+>          {
+>             label:  "Item 2",
+>          },
+>          ],
+>       },
+>];
+>
+>//Application menu treatment for MacOs 
+>if (process.platform == "darwin") {
+>   templateMenu.unshift({
+>      label:  app.getName(),
+>      submenu: [
+>         {
+>            label:  "Mac é complicado",
+>         },
+>      ],
+>   });
+>}
+>
+>let  menuPrincipal = Menu.buildFromTemplate(templateMenu);
+>Menu.setApplicationMenu(menuPrincipal);
+>```
 
 
 ## Commands
