@@ -9,18 +9,46 @@ const webReference = {
 
 let sobreWindow = null;
 let tray = null;
-
+let mainWindow = null;
 app.on("ready", () => {
-  let mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     webPreferences: webReference,
     width: 600,
     height: 400,
   });
 
   tray = new Tray(__dirname + "/app/img/icon-tray.png");
-  let template = templateGenerator.geraTrayTemplate();
+  let template = templateGenerator.geraTrayTemplate(mainWindow);
   let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu);
+
+  let templateMenu = [
+    {
+      label: "Meu menu",
+      submenu: [
+        {
+          label: "Item 1",
+        },
+        {
+          label: "Item 2",
+        },
+      ],
+    },
+  ];
+
+  if (process.platform == "darwin") {
+    templateMenu.unshift({
+      label: app.getName(),
+      submenu: [
+        {
+          label: "Mac é complicado",
+        },
+      ],
+    });
+  }
+
+  let menuPrincipal = Menu.buildFromTemplate(templateMenu);
+  Menu.setApplicationMenu(menuPrincipal);
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 });
@@ -53,4 +81,13 @@ ipcMain.on("fechar-janela-sobre", () => {
 
 ipcMain.on("curso-parado", (event, curso, tempoEstudado) => {
   data.salvaDados(curso, tempoEstudado);
+});
+
+ipcMain.on("curso-adicionado", (event, novoCurso) => {
+  let novoTemplate = templateGenerator.adicionaCursoNoTray(
+    novoCurso,
+    mainWindow
+  );
+  let novoTrayMenu = Menu.buildFromTemplate(novoTemplate);
+  tray.setContextMenu(novoTrayMenu);
 });
