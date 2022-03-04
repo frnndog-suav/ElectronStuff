@@ -1,4 +1,11 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Tray,
+  Menu,
+  globalShortcut,
+} = require("electron");
 const data = require("./data");
 const templateGenerator = require("./template");
 
@@ -22,31 +29,11 @@ app.on("ready", () => {
   let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu);
 
-  let templateMenu = [
-    {
-      label: "Meu menu",
-      submenu: [
-        {
-          label: "Item 1",
-        },
-        {
-          label: "Item 2",
-        },
-      ],
-    },
-  ];
+  globalShortcut.register("CmdOrCtrl+Shift+S", () => {
+    mainWindow.send("atalho-iniciar-parar");
+  });
 
-  if (process.platform == "darwin") {
-    templateMenu.unshift({
-      label: app.getName(),
-      submenu: [
-        {
-          label: "Mac é complicado",
-        },
-      ],
-    });
-  }
-
+  let templateMenu = templateGenerator.geraMenuPrincipalTemplate(app);
   let menuPrincipal = Menu.buildFromTemplate(templateMenu);
   Menu.setApplicationMenu(menuPrincipal);
 
