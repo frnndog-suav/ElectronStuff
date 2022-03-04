@@ -5,6 +5,7 @@ This repository will store important notes and projects developed with Electron 
 
 ## Important observations
 
+- [Check electron documentation here](https://www.electronjs.org/docs/latest/api/app)
 - [NodeJs](https://nodejs.org/en/) is required
 - Create the package.json by executing on your project folder the command `npm init` 
 - After you executed the command above, the next command you should run is `npm install electron@latest --save`
@@ -43,7 +44,7 @@ This repository will store important notes and projects developed with Electron 
 >```
 
 ## Loading custom HTML file
->**Don't forget to import your custom css and javascript file inside your html file**
+**Don't forget to import your custom css and javascript file inside your html file**
 >
 >_main.js_
 >```javascript
@@ -82,7 +83,16 @@ This repository will store important notes and projects developed with Electron 
 >    window.loadURL(`file://${__dirname}/app/index.html`);
 >});
 >```
->
+## Communication inside main process
+>_main.js_
+>```javascript
+>...
+>ipcMain.emit("event")
+>...
+>ipcMain.on("event", () =>{
+>...
+>});
+>```
 ## Sending parameters from renderer to main process
 >_renderer.js_
 >```javascript
@@ -195,6 +205,29 @@ This repository will store important notes and projects developed with Electron 
 >let  menuPrincipal = Menu.buildFromTemplate(templateMenu);
 >Menu.setApplicationMenu(menuPrincipal);
 >```
+
+## Accelerators (shortcuts)
+**Accelerators only works when application is on focus**
+>```javascript
+>...
+>submenu: [
+>   {
+>      label:  "Example submenu",
+>      accelerator:"Shift+I"
+>   },
+>],
+>...
+>```
+>**Obs**: Check usability [here](https://www.electronjs.org/pt/docs/latest/api/accelerator).
+
+## Globalshortcut
+>```javascript
+>const {globalShortcut} = require("electron");
+>...
+>globalShortcut.register("CmdOrCtrl+Shift+S", () => {...});
+>```
+>**Obs**: Use accelerator documentation to set shorcut.
+
 
 
 ## Commands
