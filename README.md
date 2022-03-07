@@ -243,6 +243,35 @@ This repository will store important notes and projects developed with Electron 
 >...
 >```
 
+## Packing your application
+-	Check the _Electron Packager_ documentation [here](https://github.com/electron/electron-packager).
+ - Execute the following command to install _Electron Packager_: `npm install electron-packager -g`.
+>**Mind the following file tree sctructure.**
+>```
+>C:
+>├─Electron
+>│	├─AluraTimer
+>|		├─app
+>|		├─...
+>|	├─icon
+>|		├─icon.png
+>|		├─icon.icon
+>|		├─icon.icns
+>```
+
+ - To pack your application, you must be **one folder above than your project folder** ('Electron' folder) and execute the following command: `electron-packager <sourcedir> <appname> --platform=<platform> --arch=<arch> --icon=<icon>`
+	 - The parameter `--platform` is the operation system you want your application be exported to.
+		 - `--platform=darwing` is Mac.
+		 - `--platform=win32` is Windows.
+		 - `--platform=linux` is Linux
+		 - `--platform=linux, darwing, win32` is Linux, Mac and Windows (it doesn't matter the parameters order).
+	- The parameter `-arch` is the OS architecture (x32 or x64).
+	- You can set your application icon using the parameter `--icon`. Create a new folder in the same place where you project folder is and paste the icon there.
+		- Linux -> .png file.
+		- Mac -> .icns file.
+		- Windows -> .ico file.
+		- If you're generating the three OS version all at once, you can set all the icons file with the same name. You don't need to specify the file extension (example:`electron-packager <sourcedir> <appname> --platform=<platform> --arch=<arch> --icon=icon/icon`)
+		
 ## Commands
 
 - `node -v` -> check NodeJs version.
