@@ -157,6 +157,7 @@ This repository will store important notes and projects developed with Electron 
 
 ## Tray
 >**Tray() requires a mandatory argument: your tray icon**
+>_main.js_
 >```javascript
 >const { Tray, Menu } = require("electron");
 >...
@@ -173,6 +174,7 @@ This repository will store important notes and projects developed with Electron 
 >**Obs**: Check more tray customization [here](https://www.electronjs.org/pt/docs/latest/api/tray).
 
 ## Application menu
+>_main.js_
 >```javascript
 >const { Menu } = require("electron");
 >...
@@ -208,6 +210,7 @@ This repository will store important notes and projects developed with Electron 
 
 ## Accelerators (shortcuts)
 **Accelerators only works when application is on focus**
+>_main.js_
 >```javascript
 >...
 >submenu: [
@@ -221,6 +224,7 @@ This repository will store important notes and projects developed with Electron 
 >**Obs**: Check usability [here](https://www.electronjs.org/pt/docs/latest/api/accelerator).
 
 ## Globalshortcut
+>_main.js_
 >```javascript
 >const {globalShortcut} = require("electron");
 >...
@@ -228,7 +232,16 @@ This repository will store important notes and projects developed with Electron 
 >```
 >**Obs**: Use accelerator documentation to set shorcut.
 
-
+## Notification (Web API)
+>_renderer.js_
+>```javascript
+>...
+>new  Notification("Alura Timer", {
+>   body:  `O curso ${curso.textContent} foi iniciado!`,
+>   icon:  "img/play-button.png",
+>});
+>...
+>```
 
 ## Commands
 
