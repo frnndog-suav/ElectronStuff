@@ -42,13 +42,23 @@ botaoPlay.addEventListener("click", () => {
 });
 
 ipcRenderer.on("curso-trocado", (event, nomeCurso) => {
-  data.pegaDados(nomeCurso).then((dados) => {
-    tempo.textContent = dados.tempo;
-  });
+  timer.parar(curso.textContent);
+  data
+    .pegaDados(nomeCurso)
+    .then((dados) => {
+      tempo.textContent = dados.tempo;
+    })
+    .catch((error) => {
+      tempo.textContent = "00:00:00";
+    });
   curso.textContent = nomeCurso;
 });
 
 botaoAdicionar.addEventListener("click", () => {
+  if (campoAdicionar.value == "") {
+    return;
+  }
+
   let novoCurso = campoAdicionar.value;
   curso.textContent = novoCurso;
   tempo.textContent = "00:00:00";
